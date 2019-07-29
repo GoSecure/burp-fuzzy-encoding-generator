@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+//sourceCompatibility = 1.8
+
+buildscript {
+    ext.kotlin_version = '1.3.21'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+
+    compile "org.apache.commons:commons-lang3:3.7"
+    compile "org.unbescape:unbescape:1.1.5.RELEASE"
+
+    compile 'net.portswigger.burp.extender:burp-extender-api:1.7.22'
+    compile 'com.esotericsoftware:minlog:1.3'
+
+    testCompile "org.testng:testng:6.9.10"
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
